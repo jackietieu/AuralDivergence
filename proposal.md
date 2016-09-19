@@ -2,7 +2,7 @@
 
 ### Background
 
-Finding similar artists usually takes a few extra clicks or search queries when you're checking out one of their tracks.  This Chrome extension will make discovering similar artists much simpler. With the use of MusicGraph's API, users of this extension can easily track down similar.
+Finding similar artists usually takes a few extra clicks or search queries when you're checking out one of their tracks.  This Chrome extension will make discovering similar artists much simpler. With the use of MusicGraph's API, users of this extension can easily track down similar artists.
 
 ### Functionality & MVP
 
