@@ -1,11 +1,15 @@
 body {
   font-family: sans-serif;
+  margin: 2px;
+  border: 1px solid black;
 }
 
 .search {
-  width: 400px;
-  height: 400px;
-  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  min-width: 210px;
+  /*min-height: 70px;*/
+  align-items: center;
   background: transparent;
   text-align: center;
 }
@@ -34,7 +38,7 @@ body {
   margin: 0 auto;
   width: 15%;
   height: 15%;
-  background-color: #333;
+  background-color: #1ed760;
   border-radius: 100%;
   -webkit-animation: sk-circleBounceDelay 1.2s infinite ease-in-out both;
           animation: sk-circleBounceDelay 1.2s infinite ease-in-out both;

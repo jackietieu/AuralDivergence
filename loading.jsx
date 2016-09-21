@@ -16,7 +16,6 @@ class Loading extends React.Component{
 
   render(){
     let artists = this.props.artists;
-
     if (this.props.loadingState === true) {
       return(
         <div className="sk-circle">

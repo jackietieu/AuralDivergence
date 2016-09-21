@@ -5,22 +5,27 @@ import Loading from './loading';
 class MainComponent extends React.Component{
   constructor(props){
     super(props);
-    this.selection = this.props.selection;
     this.state = {
       searchQueryArtists: [],
       query: "initial",
+      searchingFor: this.props.selection,
       loadingState: true
     };
   }
 
   componentDidMount(){
-    this.getArtists(this.selection, artists => {
-      this.setState({ searchQueryArtists: artists, loadingState: false });
+    this.getMatchingArtists(this.state.searchingFor, artists => {
+      this.setState({
+        searchQueryArtists: artists,
+        loadingState: false,
+        searchingFor: this.state.searchingFor
+      });
     });
   }
 
   clickForSimilarArtists(e){
     e.preventDefault();
+    this.setState({ searchingFor: e.currentTarget.className, loadingState: true });
     let id = e.currentTarget.id;
     let similarArtists = [];
     let xmlhttp = new XMLHttpRequest();
@@ -36,13 +41,17 @@ class MainComponent extends React.Component{
             }
           });
 
-          this.setState({ searchQueryArtists: similarArtists, query: "similar", loadingState: false });
+          this.setState({
+            searchQueryArtists: similarArtists,
+            query: "similar",
+            loadingState: false
+          });
         }
       }
     };
   }
 
-  getArtists(selection, callback){
+  getMatchingArtists(selection, callback){
     let validArtists = [];
     let xmlhttp = new XMLHttpRequest();
     xmlhttp.open("GET", `http://api.musicgraph.com/api/v2/artist/suggest?api_key=4deb62f4b8e4d6307009ae775169ecaa&prefix=${selection[0]}`);
@@ -68,11 +77,13 @@ class MainComponent extends React.Component{
     let artists;
 
     if (this.state.loadingState === true && this.state.query === "initial") {
-      header = <span>Searching for artists that match {this.selection}:</span>;
+      header = <span>Searching for artists that match {this.state.searchingFor}:</span>;
     } else if (this.state.loadingState === false && this.state.query === "initial") {
-      header = <span>Artists that match {this.selection}:</span>;
+      header = <span>Artists that match {this.state.searchingFor}:</span>;
+    } else if (this.state.loadingState === true && this.state.query === "similar") {
+      header = <span>Searching for artists similar to {this.state.searchingFor}:</span>;
     } else {
-      header = <span>Spotify links for artists similar to {this.selection}:</span>;
+      header = <span>Spotify links for artists similar to {this.state.searchingFor}:</span>;
     }
 
     if (this.state.searchQueryArtists.length > 0) {
@@ -80,7 +91,6 @@ class MainComponent extends React.Component{
         artists = this.state.searchQueryArtists.map(artist =>
           <Artist
             artist={artist}
-            id={artist.id}
             clickHandler={this.clickForSimilarArtists.bind(this)}
             key={artist.id} />
         );
