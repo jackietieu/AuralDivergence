@@ -2,6 +2,35 @@ body {
   font-family: sans-serif;
   margin: 2px;
   border: 1px solid black;
+  white-space: nowrap;
+}
+
+.artist-list-item {
+  display: flex;
+  justify-content: space-between;
+}
+
+.search-buttons button {
+  margin: 1px;
+  border-radius: 3px;
+  background: #43DE7D;
+  border-bottom: 2px solid #009C3A;
+  border-right: 2px solid #009C3A;
+  border-left: 2px solid #65E494;
+  border-top: 2px solid #65E494;
+}
+
+.search-buttons button:hover {
+  cursor: pointer;
+  background: #6FE89C;
+}
+
+.artist-list-item span {
+  margin: 0 20px 0 10px;
+}
+
+.artist-list-item {
+  align-items: center;
 }
 
 .search {
@@ -15,7 +44,6 @@ body {
 }
 
 .search li {
-  cursor: pointer;
   list-style: none;
 }
 

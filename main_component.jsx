@@ -11,6 +11,8 @@ class MainComponent extends React.Component{
       searchingFor: this.props.selection,
       loadingState: true
     };
+
+    this.clickForSimilarArtists = this.clickForSimilarArtists.bind(this);
   }
 
   componentDidMount(){
@@ -87,21 +89,12 @@ class MainComponent extends React.Component{
     }
 
     if (this.state.searchQueryArtists.length > 0) {
-      if (this.state.query === "initial") {
-        artists = this.state.searchQueryArtists.map(artist =>
-          <Artist
-            artist={artist}
-            clickHandler={this.clickForSimilarArtists.bind(this)}
-            key={artist.id} />
-        );
-      } else if (this.state.query === "similar") {
-        artists = this.state.searchQueryArtists.map(artist =>
-          <Artist
-            artist={artist}
-            id={artist.id}
-            key={artist.id} />
-        );
-      }
+      artists = this.state.searchQueryArtists.map(artist =>
+        <Artist
+          artist={artist}
+          clickForSimilarArtists={this.clickForSimilarArtists}
+          key={artist.id} />
+      );
     }
 
     return(

@@ -9,10 +9,17 @@ class Artist extends React.Component{
   render(){
     return(
       <li className="artist-list-item">
-        <span
-          onClick={this.props.clickHandler}
-          className={this.artist.name}
-          id={this.artist.id}>{this.artist.name}</span>
+        <div className="artist-name">
+          <span>{this.artist.name}</span>
+        </div>
+
+        <div className="search-buttons">
+          <button>Spotify</button>
+          <button
+            onClick={this.props.clickForSimilarArtists}
+            className={this.artist.name}
+            id={this.artist.id}>Similar Artists</button>
+        </div>
       </li>
     );
   }
