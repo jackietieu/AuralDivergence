@@ -3,23 +3,23 @@
 
 //for the first step, just retrieve artists that match string query
 
-function getArtists(queryString, tab, callback){
-  console.log(`retrieving artists matching ${queryString}`);
-
-  $.ajax({
-    url: `http://api.musicgraph.com/api/v2/artist/suggest?api_key=4deb62f4b8e4d6307009ae775169ecaa&prefix=${queryString}`,
-    method: "GET",
-    success: (data) => {
-      console.log(data);
-      //remove old artist search query, replace with similar artists
-      // chrome.contextMenus.removeAll({
-      //
-      // });
-      //what to do when data is received?
-      //retain artist id
-      //render to page with links that will fire a second API request for similar artists
-    }
-  });
+// function getArtists(queryString, tab, callback){
+//   console.log(`retrieving artists matching ${queryString}`);
+//
+//   $.ajax({
+//     url: `http://api.musicgraph.com/api/v2/artist/suggest?api_key=4deb62f4b8e4d6307009ae775169ecaa&prefix=${queryString}`,
+//     method: "GET",
+//     success: (data) => {
+//       console.log(data);
+//       //remove old artist search query, replace with similar artists
+//       // chrome.contextMenus.removeAll({
+//       //
+//       // });
+//       //what to do when data is received?
+//       //retain artist id
+//       //render to page with links that will fire a second API request for similar artists
+//     }
+//   });
 
   //create tab as success callback
   // chrome.tabs.create({ 'url': 'chrome://extensions/?index=' + chrome.runtime.id });
@@ -45,8 +45,8 @@ function getArtists(queryString, tab, callback){
   //
   //   }
   // };
-
-}
+//
+// }
 
 // chrome.contextMenus.create({
 //   title: "Search for Artists: %s",
@@ -55,11 +55,31 @@ function getArtists(queryString, tab, callback){
 // });
 
 //click on an artists in the context menu
-function onArtistClick(){
+export function onArtistClick(id, callback){
   //chrome.contextMenus.removeAll(callback)
     //contextMenu will be cleared of original query
     //the cb will fire an API call to retrieve similar artists
     //and their spotify IDs
+
+  let similarArtists = [];
+  let xmlhttp = new XMLHttpRequest();
+  xmlhttp.open("GET", `http://api.musicgraph.com/api/v2/artist/${id}/similar?api_key=4deb62f4b8e4d6307009ae775169ecaa`);
+  xmlhttp.send();
+  xmlhttp.onreadystatechange = () => {
+    if (xmlhttp.readyState === 4) {
+      if (xmlhttp.status === 200) {
+        let response = JSON.parse(xmlhttp.responseText);
+        response.data.forEach(artistObj => {
+          if (Object.keys(artistObj).includes("artist_ref_id")){
+            similarArtists.push(artistObj);
+          }
+        });
+        
+        console.log('onartistclick', similarArtists);
+        callback(similarArtists);
+      }
+    }
+  };
 }
 
 function onSimilarArtistClick(){
@@ -153,33 +173,54 @@ function onSimilarArtistClick(){
 // function listArtistsQuery(artists, callback){
 //
 // }
+//
+// document.addEventListener('DOMContentLoaded', function() {
+//   chrome.tabs.executeScript({
+//     code: "window.getSelection().toString();"
+//   }, function(selection) {
+//     let validArtists = [];
+//     let xmlhttp = new XMLHttpRequest();
+//     xmlhttp.open("GET", `http://api.musicgraph.com/api/v2/artist/suggest?api_key=4deb62f4b8e4d6307009ae775169ecaa&prefix=${selection[0]}`);
+//     xmlhttp.send();
+//     xmlhttp.onreadystatechange = () => {
+//       if (xmlhttp.readyState === 4) {
+//         if (xmlhttp.status === 200) {
+//           let response = JSON.parse(xmlhttp.responseText);
+//           response.data.forEach(artistObj => {
+//             if (Object.keys(artistObj).includes("artist_ref_id")){
+//               validArtists.push(artistObj);
+//             }
+//           });
+//
+//           console.log('success', validArtists);
+//           //`https://open.spotify.com/artist/${artistObj.spotify_id}`
+//           // callback(validArtists);
+//         }
+//       } else {
+//         console.log('fail', JSON.parse(xmlhttp.responseText));
+//       }
+//     };
+//       document.getElementById("root").innerHTML = selection[0];
+//   });
+// });
 
-document.addEventListener('DOMContentLoaded', function() {
-  chrome.tabs.executeScript({
-    code: "window.getSelection().toString();"
-  }, function(selection) {
-    let validArtists = [];
-    let xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("GET", `http://api.musicgraph.com/api/v2/artist/suggest?api_key=4deb62f4b8e4d6307009ae775169ecaa&prefix=${selection[0]}`);
-    xmlhttp.send();
-    xmlhttp.onreadystatechange = () => {
-      if (xmlhttp.readyState === 4) {
-        if (xmlhttp.status === 200) {
-          let response = JSON.parse(xmlhttp.responseText);
-          response.data.forEach(artistObj => {
-            if (Object.keys(artistObj).includes("artist_ref_id")){
-              validArtists.push(artistObj);
-            }
-          });
+export function getArtists(selection, callback){
+  let validArtists = [];
+  let xmlhttp = new XMLHttpRequest();
+  xmlhttp.open("GET", `http://api.musicgraph.com/api/v2/artist/suggest?api_key=4deb62f4b8e4d6307009ae775169ecaa&prefix=${selection[0]}`);
+  xmlhttp.send();
+  xmlhttp.onreadystatechange = () => {
+    if (xmlhttp.readyState === 4) {
+      if (xmlhttp.status === 200) {
+        let response = JSON.parse(xmlhttp.responseText);
+        response.data.forEach(artistObj => {
+          if (Object.keys(artistObj).includes("artist_ref_id")){
+            validArtists.push(artistObj);
+          }
+        });
 
-          console.log('success', validArtists);
-          //`https://open.spotify.com/artist/${artistObj.spotify_id}`
-          // callback(validArtists);
-        }
-      } else {
-        console.log('fail', JSON.parse(xmlhttp.responseText));
+        callback(validArtists);
       }
-    };
-      document.getElementById("root").innerHTML = selection[0];
-  });
-});
+    }
+  };
+}

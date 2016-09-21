@@ -4,5 +4,10 @@ import MainComponent from './main_component';
 
 document.addEventListener("DOMContentLoaded", () => {
   const root = document.getElementById("root");
-  ReactDOM.render(<MainComponent />, root);
+
+  chrome.tabs.executeScript({
+    code: "window.getSelection().toString();"
+  }, function(selection) {
+    ReactDOM.render(<MainComponent selection={selection} />, root);
+  });
 });
