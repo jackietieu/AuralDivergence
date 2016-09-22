@@ -17,23 +17,28 @@ class Artist extends React.Component{
     });
   }
 
-//convert to table
+  clickHandler(e){
+    e.preventDefault();
+    let url = `https://open.spotify.com/artist/${e.currentTarget.id}`;
+    chrome.tabs.create({ url: url });
+  }
 
   render(){
     return(
-      <li className="artist-list-item">
-        <div className="artist-name">
-          <span>{this.artist.name}</span>
-        </div>
-
-        <div className="search-buttons">
-          <button>Spotify</button>
+      <tr className="artist-list-item">
+        <td className="artist-name">{this.artist.name}</td>
+        <td>{this.followers}</td>
+        <td>{this.artist.popularity}</td>
+        <td className="search-buttons">
+          <button
+            id={this.artist.id}
+            onClick={this.clickHandler.bind(this)}>Spotify</button>
           <button
             onClick={this.props.clickForSimilarArtists}
             className={this.artist.name}
             id={this.artist.id}>Similar Artists</button>
-        </div>
-      </li>
+        </td>
+      </tr>
     );
   }
 }

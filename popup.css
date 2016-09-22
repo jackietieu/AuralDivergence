@@ -5,9 +5,26 @@ body {
   white-space: nowrap;
 }
 
-.artist-list-item {
-  display: flex;
-  justify-content: space-between;
+th {
+  padding: 0 5px;
+}
+
+#root {
+  /*background: #56cc82;*/
+  background: whitesmoke;
+  max-height: 360px;
+  overflow-y: scroll;
+}
+
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 7px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0,0,0,.5);
+    -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
 }
 
 .search-buttons button {
@@ -24,14 +41,10 @@ body {
   cursor: pointer;
   background: #6FE89C;
 }
-
-.artist-list-item span {
-  margin: 0 20px 0 10px;
-}
-
+/*
 .artist-list-item {
   align-items: center;
-}
+}*/
 
 .search {
   display: flex;

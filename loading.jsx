@@ -35,13 +35,24 @@ class Loading extends React.Component{
       );
     } else {
       return(
-        <div className="results">
-          {artists}
-        </div>
+        <table className="results">
+          <thead>
+            <tr>
+              <th>Artist</th>
+              <th>Followers</th>
+              <th>Popularity</th>
+              <th>Links</th>
+            </tr>
+          </thead>
+          <tbody>{artists}</tbody>
+        </table>
       );
     }
 
   }
 }
 
+// <div className="results">
+//   {artists}
+// </div>
 export default Loading;

@@ -8,10 +8,7 @@
     "default_popup": "popup.html"
   },
   "permissions": [
-    "contextMenus",
-    "https://ajax.googleapis.com/",
-    "http://api.musicgraph.com/*",
-    "activeTab"
+    "tabs"
   ],
   "background": {
     "scripts": ["popup.js"]
