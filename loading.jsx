@@ -39,6 +39,7 @@ class Loading extends React.Component{
           <thead>
             <tr>
               <th>Artist</th>
+              <th>Random Track</th>
               <th>Followers</th>
               <th>Popularity</th>
               <th>Links</th>
