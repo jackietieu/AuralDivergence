@@ -1,6 +1,7 @@
 import React from 'react';
 import Artist from './artist';
 import Loading from './loading';
+import $ from "jquery";
 
 class MainComponent extends React.Component{
   constructor(props){
@@ -27,51 +28,47 @@ class MainComponent extends React.Component{
 
   clickForSimilarArtists(e){
     e.preventDefault();
-    this.setState({ searchingFor: e.currentTarget.className, loadingState: true });
+    this.setState({
+      searchingFor: e.currentTarget.className,
+      loadingState: true
+    });
     let id = e.currentTarget.id;
     let similarArtists = [];
-    let xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("GET", `http://api.musicgraph.com/api/v2/artist/${id}/similar?api_key=4deb62f4b8e4d6307009ae775169ecaa`);
-    xmlhttp.send();
-    xmlhttp.onreadystatechange = () => {
-      if (xmlhttp.readyState === 4) {
-        if (xmlhttp.status === 200) {
-          let response = JSON.parse(xmlhttp.responseText);
-          response.data.forEach(artistObj => {
-            if (Object.keys(artistObj).includes("artist_ref_id")){
-              similarArtists.push(artistObj);
-            }
-          });
 
-          this.setState({
-            searchQueryArtists: similarArtists,
-            query: "similar",
-            loadingState: false
-          });
-        }
+    $.ajax({
+      url: `https://api.spotify.com/v1/artists/${id}/related-artists`,
+      method: 'get',
+      success: res => {
+        console.log(res);
+        let data = res.artists; //array
+        data.forEach(artistObj => {
+          similarArtists.push(artistObj);
+        });
+
+        this.setState({
+          searchQueryArtists: similarArtists,
+          query: "similar",
+          loadingState: false
+        });
       }
-    };
+    });
   }
 
   getMatchingArtists(selection, callback){
     let validArtists = [];
-    let xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("GET", `http://api.musicgraph.com/api/v2/artist/suggest?api_key=4deb62f4b8e4d6307009ae775169ecaa&prefix=${selection[0]}`);
-    xmlhttp.send();
-    xmlhttp.onreadystatechange = () => {
-      if (xmlhttp.readyState === 4) {
-        if (xmlhttp.status === 200) {
-          let response = JSON.parse(xmlhttp.responseText);
-          response.data.forEach(artistObj => {
-            if (Object.keys(artistObj).includes("artist_ref_id")){
-              validArtists.push(artistObj);
-            }
-          });
 
-          callback(validArtists);
-        }
+    $.ajax({
+      url: `https://api.spotify.com/v1/search?q=${selection}&type=artist`,
+      method: 'get',
+      success: res => {
+        let data = res.artists.items; //array
+        data.forEach(artistObj => {
+          validArtists.push(artistObj);
+        });
+
+        callback(validArtists);
       }
-    };
+    });
   }
 
   render(){
