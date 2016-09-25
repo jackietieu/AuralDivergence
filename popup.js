@@ -1,3 +1,9 @@
+// chrome.tabs.executeScript( {
+//     code: "window.getSelection().toString();"
+// }, function(selection) {
+//   console.log(selection);
+// });
+
 //MusicGraph API Key 4deb62f4b8e4d6307009ae775169ecaa
 //URL http://api.musicgraph.com/
 
