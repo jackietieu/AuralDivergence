@@ -16,7 +16,7 @@ class Artist extends React.Component{
     this.artist = this.props.artist;
     this.followers = this.artist.followers.total;
     this.imageUrls = this.artist.images.map(imageObj => {
-      if ((imageObj.width > 640) || (imageObj.height > 640)) {
+      if ((imageObj.width <= 640) || (imageObj.height <= 640)) {
         return imageObj.url;
       }
     });
@@ -113,8 +113,16 @@ class Artist extends React.Component{
   }
 
   render(){
-    let buttonDisplay, nextTrack, trackTitle;
+    let buttonDisplay, nextTrack, trackTitle, artistImage;
     let randomTrackClickHandler = this.clickForRandomTrack.bind(this);
+
+    if (this.imageUrls[0]) {
+      artistImage =
+        <img
+          id={`image`.concat(this.artist.id)}
+          className={"artist-image"}
+          src={this.imageUrls[0]} />;
+    }
 
     if (this.state.randomTrackUrl === undefined) {
       buttonDisplay =
@@ -157,7 +165,10 @@ class Artist extends React.Component{
 
     return(
       <tr className="artist-list-item">
-        <td className="artist-name">{this.artist.name}</td>
+        <td className="artist-name" id={`artist-name`.concat(this.artist.id)}>
+          {this.artist.name}
+          {artistImage}
+        </td>
         <td className="random-track">
           {nextTrack}
           {trackTitle}
@@ -178,9 +189,5 @@ class Artist extends React.Component{
     );
   }
 }
-
-// <button
-//   id={this.artist.id}
-//   onClick={randomTrackClickHandler}>{buttonDisplay}</button>
 
 export default Artist;

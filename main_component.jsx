@@ -85,7 +85,6 @@ class MainComponent extends React.Component{
     }
 
     if (this.state.searchQueryArtists.length > 0) {
-      console.log(this.state.searchQueryArtists);
       artists =
         this.state.searchQueryArtists
           .sort((artist1, artist2) => (artist2.followers.total - artist1.followers.total))
