@@ -6,6 +6,35 @@ Sometimes you're browsing the web and you run across something familiar on your 
 
 This Chrome extension will make discovering similar artists and sample tracks much simpler. With the use of Spotify's API, users of this extension can easily track down similar artists and sample tracks by highlighting a string and clicking on the popup icon to run a search query on the selected string.
 
+This extension wouldn't be possible without Spotify's API. Here is a code snippet of how I retrieved random tracks from the selected artist:
+
+```JavaScript
+  $.ajax({
+    url: `https://api.spotify.com/v1/artists/${id}/top-tracks?country=US`,
+    method: 'get',
+    success: res => {
+      let data = res.tracks;
+
+      data.forEach(trackObj => {
+        tracks.push(trackObj);
+      });
+
+      let randomTrack = tracks[Math.floor(Math.random() * tracks.length)];
+      let audio = new Audio(randomTrack.preview_url);
+
+      this.setState({
+        randomTrackUrl: randomTrack.preview_url,
+        randomTrackTitle: randomTrack.name,
+        audioObject: audio,
+        trackId: randomTrack.id,
+        playing: true
+      },
+        () => {audio.play();}
+      );
+    }
+  });
+```
+
 ### Installation
 
 1. Download this extension by downloading this repository as a .zip file.
