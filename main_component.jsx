@@ -85,11 +85,15 @@ class MainComponent extends React.Component{
     }
 
     if (this.state.searchQueryArtists.length > 0) {
-      artists = this.state.searchQueryArtists.map(artist =>
-        <Artist
-          artist={artist}
-          clickForSimilarArtists={this.clickForSimilarArtists}
-          key={artist.id} />
+      console.log(this.state.searchQueryArtists);
+      artists =
+        this.state.searchQueryArtists
+          .sort((artist1, artist2) => (artist2.followers.total - artist1.followers.total))
+          .map(artist =>
+          <Artist
+            artist={artist}
+            clickForSimilarArtists={this.clickForSimilarArtists}
+            key={artist.id} />
       );
     }
 

@@ -9,6 +9,7 @@ class Artist extends React.Component{
       randomTrackUrl: undefined,
       randomTrackTitle: undefined,
       audioObject: undefined,
+      trackId: undefined,
       playing: false
     };
 
@@ -27,6 +28,12 @@ class Artist extends React.Component{
     chrome.tabs.create({ url: url });
   }
 
+  clickForTrackPage(e){
+    e.preventDefault();
+    let url = `https://open.spotify.com/track/${e.currentTarget.id}`;
+    chrome.tabs.create({ url: url });
+  }
+
   clickForRandomTrack(e){
     e.preventDefault();
     let tracks = [];
@@ -40,6 +47,7 @@ class Artist extends React.Component{
       randomTrackUrl: undefined,
       randomTrackTitle: undefined,
       audioObject: undefined,
+      trackId: undefined,
       playing: false
     },
       () => {
@@ -60,6 +68,7 @@ class Artist extends React.Component{
               randomTrackUrl: randomTrack.preview_url,
               randomTrackTitle: randomTrack.name,
               audioObject: audio,
+              trackId: randomTrack.id,
               playing: true
             },
               () => {audio.play();}
@@ -96,6 +105,7 @@ class Artist extends React.Component{
       randomTrackUrl: undefined,
       randomTrackTitle: undefined,
       audioObject: undefined,
+      trackId: undefined,
       playing: false
     },
       this.props.clickForSimilarArtists(e)
@@ -106,7 +116,6 @@ class Artist extends React.Component{
     let buttonDisplay, nextTrack, trackTitle;
     let randomTrackClickHandler = this.clickForRandomTrack.bind(this);
 
-
     if (this.state.randomTrackUrl === undefined) {
       buttonDisplay =
         <i
@@ -116,9 +125,14 @@ class Artist extends React.Component{
           onClick={randomTrackClickHandler}></i>;
     } else {
       trackTitle =
+      <button
+        className="track-button"
+        id={this.state.trackId}
+        onClick={this.clickForTrackPage.bind(this)}>
         <span className="random-track-title">
           {this.state.randomTrackTitle}
-        </span>;
+        </span>
+      </button>;
       nextTrack =
         <i
           className="fa fa-step-forward"
