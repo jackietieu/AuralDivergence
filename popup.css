@@ -1,3 +1,5 @@
+@import url("./font-awesome/css/font-awesome.min.css");
+
 body {
   font-family: sans-serif;
   margin: 2px;
@@ -5,8 +7,34 @@ body {
   white-space: nowrap;
 }
 
+i:hover {
+  cursor: pointer;
+}
+
+tr:hover {
+  transition: background-color 0.5s ease;
+  background-color: #AEF7C9;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+td {
+  padding: 0;
+}
+
 th {
   padding: 0 5px;
+}
+
+td.artist-name {
+  padding: 0 10px;
+}
+
+
+.random-track-title {
+  margin: 0 10px;
 }
 
 #root {
@@ -27,8 +55,8 @@ th {
     -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
 }
 
-.search-buttons button {
-  margin: 1px;
+button {
+  margin: 2px;
   border-radius: 3px;
   background: #43DE7D;
   border-bottom: 2px solid #009C3A;
@@ -37,7 +65,7 @@ th {
   border-top: 2px solid #65E494;
 }
 
-.search-buttons button:hover {
+button:hover {
   cursor: pointer;
   background: #6FE89C;
 }

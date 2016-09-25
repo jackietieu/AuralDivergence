@@ -39,7 +39,6 @@ class MainComponent extends React.Component{
       url: `https://api.spotify.com/v1/artists/${id}/related-artists`,
       method: 'get',
       success: res => {
-        console.log(res);
         let data = res.artists; //array
         data.forEach(artistObj => {
           similarArtists.push(artistObj);

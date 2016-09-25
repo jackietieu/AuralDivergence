@@ -53,7 +53,4 @@ class Loading extends React.Component{
   }
 }
 
-// <div className="results">
-//   {artists}
-// </div>
 export default Loading;

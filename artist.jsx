@@ -8,14 +8,12 @@ class Artist extends React.Component{
     this.state = {
       randomTrackUrl: undefined,
       randomTrackTitle: undefined,
+      audioObject: undefined,
+      playing: false
     };
 
     this.artist = this.props.artist;
-    this.href = this.artist.href;
     this.followers = this.artist.followers.total;
-    this.id = this.artist.id;
-    this.popularity = this.artist.popularity;
-
     this.imageUrls = this.artist.images.map(imageObj => {
       if ((imageObj.width > 640) || (imageObj.height > 640)) {
         return imageObj.url;
@@ -31,47 +29,125 @@ class Artist extends React.Component{
 
   clickForRandomTrack(e){
     e.preventDefault();
-    let tracks = []; //track urls of artist
+    let tracks = [];
+    let id = e.currentTarget.id;
 
-    $.ajax({
-      url: `https://api.spotify.com/v1/artists/${e.currentTarget.id}/top-tracks?country=US`,
-      method: 'get',
-      success: res => {
-        let data = res.tracks; //array
-        data.forEach(trackObj => {
-          tracks.push(trackObj);
-        });
-        let randomTrack = tracks[Math.floor(Math.random() * tracks.length)];
-        this.setState({
-          randomTrackUrl: randomTrack.preview_url,
-          randomTrackTitle: randomTrack.name
+    if (this.state.randomTrackUrl) {
+      this.state.audioObject.pause();
+    }
+
+    this.setState({
+      randomTrackUrl: undefined,
+      randomTrackTitle: undefined,
+      audioObject: undefined,
+      playing: false
+    },
+      () => {
+        $.ajax({
+          url: `https://api.spotify.com/v1/artists/${id}/top-tracks?country=US`,
+          method: 'get',
+          success: res => {
+            let data = res.tracks;
+
+            data.forEach(trackObj => {
+              tracks.push(trackObj);
+            });
+
+            let randomTrack = tracks[Math.floor(Math.random() * tracks.length)];
+            let audio = new Audio(randomTrack.preview_url);
+
+            this.setState({
+              randomTrackUrl: randomTrack.preview_url,
+              randomTrackTitle: randomTrack.name,
+              audioObject: audio,
+              playing: true
+            },
+              () => {audio.play();}
+            );
+          }
         });
       }
-    });
+    );
   }
 
-  //playing random track sample
-  //setup click handler to run ajax request to pull tracks of artist
-  //once loaded, looks at all object keys/tracks in response
-  //randomly picks out a track
-  //start playing preview_url
+  clickForPlayPause(e){
+    e.preventDefault();
+    if (this.state.playing) {
+      this.setState({
+        playing: false
+      },
+        () => {this.state.audioObject.pause();}
+      );
+    } else {
+      this.setState({
+        playing: true
+      },
+        () => {this.state.audioObject.play();}
+      );
+    }
+  }
 
-  //convert clickhandler of button to stop playing audio
-  //clickhandler becomes play/pause of random track once random track is picked
+  clickForSimilarArtists(e){
+    if (this.state.audioObject !== undefined) {
+      this.state.audioObject.pause();
+    }
+
+    this.setState({
+      randomTrackUrl: undefined,
+      randomTrackTitle: undefined,
+      audioObject: undefined,
+      playing: false
+    },
+      this.props.clickForSimilarArtists(e)
+    );
+  }
 
   render(){
+    let buttonDisplay, nextTrack, trackTitle;
+    let randomTrackClickHandler = this.clickForRandomTrack.bind(this);
 
-    // if (this.randomTrack !== undefined) {
-    //   //convert random track button to play/pause
-    // }
+
+    if (this.state.randomTrackUrl === undefined) {
+      buttonDisplay =
+        <i
+          className="fa fa-play"
+          aria-hidden="true"
+          id={this.artist.id}
+          onClick={randomTrackClickHandler}></i>;
+    } else {
+      trackTitle =
+        <span className="random-track-title">
+          {this.state.randomTrackTitle}
+        </span>;
+      nextTrack =
+        <i
+          className="fa fa-step-forward"
+          aria-hidden="true"
+          id={this.artist.id}
+          onClick={randomTrackClickHandler}></i>;
+      randomTrackClickHandler = this.clickForPlayPause.bind(this);
+      if (this.state.playing === false) {
+        buttonDisplay =
+          <i
+            className="fa fa-play"
+            aria-hidden="true"
+            onClick={randomTrackClickHandler}></i>;
+      } else {
+        buttonDisplay =
+          <i
+            className="fa fa-pause"
+            aria-hidden="true"
+            onClick={randomTrackClickHandler}></i>;
+      }
+    }
 
     return(
       <tr className="artist-list-item">
         <td className="artist-name">{this.artist.name}</td>
         <td className="random-track">
-          <button
-            id={this.artist.id}
-            onClick={this.clickForRandomTrack.bind(this)}>{this.state.randomTrackTitle}</button>
+          {nextTrack}
+          {trackTitle}
+          {buttonDisplay}
         </td>
         <td>{this.followers}</td>
         <td>{this.artist.popularity}</td>
@@ -80,7 +156,7 @@ class Artist extends React.Component{
             id={this.artist.id}
             onClick={this.clickForSpotifyPage.bind(this)}>Spotify</button>
           <button
-            onClick={this.props.clickForSimilarArtists}
+            onClick={this.clickForSimilarArtists.bind(this)}
             className={this.artist.name}
             id={this.artist.id}>Similar Artists</button>
         </td>
@@ -88,5 +164,9 @@ class Artist extends React.Component{
     );
   }
 }
+
+// <button
+//   id={this.artist.id}
+//   onClick={randomTrackClickHandler}>{buttonDisplay}</button>
 
 export default Artist;

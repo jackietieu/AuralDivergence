@@ -74,8 +74,7 @@ export function onArtistClick(id, callback){
             similarArtists.push(artistObj);
           }
         });
-        
-        console.log('onartistclick', similarArtists);
+
         callback(similarArtists);
       }
     }
