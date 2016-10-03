@@ -12,8 +12,5 @@
     "https://*/*",
     "activeTab",
     "tabs"
-  ],
-  "background": {
-    "scripts": ["popup.js"]
-  }
+  ]
 }
