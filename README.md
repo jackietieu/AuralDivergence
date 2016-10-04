@@ -37,17 +37,7 @@ This extension wouldn't be possible without Spotify's API. Here is a code snippe
 
 ### Installation
 
-1. Download this extension by downloading this repository as a .zip file.
-
-2. Unpack the .zip file into any directory of your choice.
-
-3. Navigate to your Chrome browser's settings page and select the extensions tab on the left panel.
-
-4. Enable developer mode by checking the box.
-
-5. Click on 'Load unpacked extension' and navigate to this extension's folder which you previously unpacked. Go into the folder (you should now be at the main directory with this extension's contents) and hit select.
-
-6. Enjoy the extension! Check out the instructions to see how to use this extension.
+1. Download this extension by visiting this link: [Chrome App Store](https://chrome.google.com/webstore/detail/auraldivergence/aogloaiblbpeggpcnbifdemlaedmbilg)
 
 ### Instructions
 
