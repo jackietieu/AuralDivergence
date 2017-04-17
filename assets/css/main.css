@@ -3630,7 +3630,7 @@
 				border-top: 0;
 			}
 
-			#main > * > .inner {
+			#main .inner {
 				padding: 4em 0 2em 0 ;
 				margin: 0 auto;
 				max-width: 65em;
@@ -3639,7 +3639,7 @@
 
 				@media screen and (max-width: 736px) {
 
-					#main > * > .inner {
+					#main .inner {
 						padding: 3em 0 1em 0 ;
 						width: calc(100% - 3em);
 					}
