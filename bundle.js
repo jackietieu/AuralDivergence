@@ -22656,9 +22656,13 @@ var Artist = function (_React$Component) {
         _react2.default.createElement(
           'td',
           { className: 'random-track' },
-          nextTrack,
           trackTitle,
-          buttonDisplay
+          _react2.default.createElement(
+            'div',
+            { className: 'track-play-skip' },
+            nextTrack,
+            buttonDisplay
+          )
         ),
         _react2.default.createElement(
           'td',

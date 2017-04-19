@@ -163,9 +163,11 @@ class Artist extends React.Component{
           {this.artist.name}
         </td>
         <td className="random-track">
-          {nextTrack}
           {trackTitle}
-          {buttonDisplay}
+          <div className="track-play-skip">
+            {nextTrack}
+            {buttonDisplay}
+          </div>
         </td>
         <td>{this.followers}</td>
         <td>{this.artist.popularity}</td>

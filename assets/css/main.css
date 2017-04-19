@@ -4146,5 +4146,27 @@ td.search-buttons button {
 }
 
 .track-button {
-	margin: 10px;
+	margin: 5px;
+}
+
+.fa-play, .fa-step-forward, .fa-pause {
+    margin: 10px 10px 0 10px;
+}
+
+.fa-play:hover, .fa-step-forward:hover, .fa-pause:hover {
+    cursor: pointer;
+}
+
+.track-play-skip {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+td {
+    vertical-align: middle;
+}
+
+.track-play-skip {
+    padding-bottom: 5px;
 }
