@@ -41,6 +41,7 @@ class Main extends React.Component {
                   Made possible with the use of the Spotify API and ReactJS.
                 </p>
               </div>
+              <a className="actions button" href="https://chrome.google.com/webstore/detail/auraldivergence/aogloaiblbpeggpcnbifdemlaedmbilg">Download</a>
             </div>
           </section>
 

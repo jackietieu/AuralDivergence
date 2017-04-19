@@ -4170,3 +4170,7 @@ td {
 .track-play-skip {
     padding-bottom: 5px;
 }
+
+#banner .content {
+	padding-bottom: 0;
+}
