@@ -22502,15 +22502,13 @@ var Artist = function (_React$Component) {
     key: 'clickForSpotifyPage',
     value: function clickForSpotifyPage(e) {
       e.preventDefault();
-      var url = 'https://open.spotify.com/artist/' + e.currentTarget.id;
-      chrome.tabs.create({ url: url });
+      window.open('https://open.spotify.com/artist/' + this.artist.id, '_blank');
     }
   }, {
     key: 'clickForTrackPage',
     value: function clickForTrackPage(e) {
       e.preventDefault();
-      var url = 'https://open.spotify.com/track/' + e.currentTarget.id;
-      chrome.tabs.create({ url: url });
+      window.open('https://open.spotify.com/track/' + this.state.trackId, '_blank');
     }
   }, {
     key: 'clickForRandomTrack',

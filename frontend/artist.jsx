@@ -20,14 +20,12 @@ class Artist extends React.Component{
 
   clickForSpotifyPage(e){
     e.preventDefault();
-    let url = `https://open.spotify.com/artist/${e.currentTarget.id}`;
-    chrome.tabs.create({ url: url });
+    window.open(`https://open.spotify.com/artist/${this.artist.id}`, '_blank');
   }
 
   clickForTrackPage(e){
     e.preventDefault();
-    let url = `https://open.spotify.com/track/${e.currentTarget.id}`;
-    chrome.tabs.create({ url: url });
+    window.open(`https://open.spotify.com/track/${this.state.trackId}`, '_blank');
   }
 
   clickForRandomTrack(e){

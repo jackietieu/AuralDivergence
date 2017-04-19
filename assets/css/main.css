@@ -4136,3 +4136,15 @@ td, th {
 .content h3 {
 	margin: 0;
 }
+
+td.search-buttons button {
+    margin: 5px;
+}
+
+.track-button span {
+	letter-spacing: normal;
+}
+
+.track-button {
+	margin: 10px;
+}
