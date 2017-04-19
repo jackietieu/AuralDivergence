@@ -11,103 +11,21 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
 		<link rel="stylesheet" href="assets/css/main.css" />
+		<!-- Scripts -->
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/jquery.scrolly.min.js"></script>
+		<script src="assets/js/jquery.scrollex.min.js"></script>
+		<script src="assets/js/skel.min.js"></script>
+		<script src="assets/js/util.js"></script>
+		<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+		<script src="assets/js/main.js"></script>
+		<script src="assets/js/spotify.js"></script>
+		<script src='./bundle.js'></script>
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 	</head>
 	<body>
-
-		<!-- Wrapper -->
-			<div id="wrapper">
-
-				<!-- Header -->
-				<!-- Note: The "styleN" class below should match that of the banner element. -->
-					<header id="header" class="alt style2">
-						<a href="index.html" class="logo"><strong>AuralDivergence</strong> <span>by Jackie Tieu</span></a>
-					</header>
-
-				<!-- Banner -->
-				<!-- Note: The "styleN" class below should match that of the header element. -->
-					<section id="banner" class="style2">
-						<div class="inner">
-							<span class="image">
-								<img src="images/pic07.jpg" alt="" />
-							</span>
-							<header class="major">
-								<h1>AuralDivergence</h1>
-							</header>
-							<div class="content">
-								<p>
-									A chrome extension for those who can't get enough music in their lives!<br />
-									Made possible with the use of the Spotify API and ReactJS.
-								</p>
-							</div>
-						</div>
-					</section>
-
-				<!-- Main -->
-					<div id="main">
-
-						<!-- One -->
-							<section id="one">
-								<div class="inner">
-									<header class="major">
-										<h2>How it works</h2>
-									</header>
-									<ol>
-										<li>Once the extension is downloaded, you can start your search by highlighting text on your screen.</li>
-										<li>Click the extension icon and any artists/bands that match the highlighted text will appear.</li>
-										<li>If there are any matches, you can sample random tracks from the artist/band, check out their spotify page, or look for recommendations!</li>
-										<li>You can keep clicking through the recommendations and listening to samples until you find something you like!</li>
-									</ol>
-								</div>
-							</section>
-
-						<!-- Three -->
-						<section id='three'>
-							<div class="content">
-								<div class="inner">
-									<header class="major">
-										<h2>Demo</h2>
-									</header>
-									<p>
-										With the extension, you can search by highlighting text on the screen.</br>
-										To simplify the process, you can just type your search query here and hit submit.
-									</p>
-									<div class="6u 12u$(xsmall)">
-										<input type="text" name="demo-name" id="demo-name" value="" placeholder="Search for artists/bands...">
-									</div>
-									<ul class="actions">
-										<li><a href="generic.html" class="button">Learn more</a></li>
-									</ul>
-								</div>
-							</div>
-						</section>
-
-					</div>
-
-				<!-- Footer -->
-					<footer id="footer">
-						<div class="inner">
-							<ul class="icons">
-								<li><a href="https://github.com/jackietieu" class="icon alt fa-github"><span class="label">GitHub</span></a></li>
-								<li><a href="https://www.linkedin.com/in/jackie-tieu-45aa8610a/" class="icon alt fa-linkedin"><span class="label">LinkedIn</span></a></li>
-							</ul>
-							<ul class="copyright">
-								<li>&copy; Jackie Tieu 2016</li><li>Design: <a href="https://html5up.net">HTML5 UP</a></li>
-							</ul>
-						</div>
-					</footer>
-
-			</div>
-
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/skel.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
-			<script src="assets/js/main.js"></script>
-			<script src="assets/js/spotify.js"></script>
+		<div id="root">
+		</div>
 	</body>
 </html>
